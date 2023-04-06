@@ -1,9 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://vde1k3vtmsh"]
+[gd_scene load_steps=6 format=3 uid="uid://cva3pkdt22ie2"]
 
 [ext_resource type="Script" path="res://node_2d.gd" id="1_x0vte"]
-[ext_resource type="Script" path="res://CharacterBody2D.gd" id="2_v0w8v"]
+[ext_resource type="Script" path="res://item.gd" id="2_167xu"]
 [ext_resource type="Texture2D" uid="uid://cjcctea38c3wq" path="res://coin.svg" id="3_m5kqq"]
-[ext_resource type="Script" path="res://Line2D.gd" id="4_4etwh"]
+[ext_resource type="Script" path="res://item-area.gd" id="4_utt8o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0qrhh"]
 radius = 48.1664
@@ -11,52 +11,47 @@ radius = 48.1664
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_x0vte")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(171, 73)
+[node name="item" type="CharacterBody2D" parent="."]
+position = Vector2(160, 80)
 input_pickable = true
-script = ExtResource("2_v0w8v")
+script = ExtResource("2_167xu")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="item"]
 z_index = 1
 z_as_relative = false
 scale = Vector2(0.12, 0.12)
 texture = ExtResource("3_m5kqq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="Line2D" type="Line2D" parent="item"]
+points = PackedVector2Array(0, 0, 96, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="item"]
 z_index = -1
 z_as_relative = false
 shape = SubResource("CircleShape2D_0qrhh")
-
-[node name="Line2D" type="Line2D" parent="CharacterBody2D"]
-points = PackedVector2Array(0, 0, 167, 24)
-script = ExtResource("4_4etwh")
-
-[node name="CharacterBody2D2" type="CharacterBody2D" parent="."]
-position = Vector2(100, 255)
-input_pickable = true
-script = ExtResource("2_v0w8v")
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D2"]
-z_index = 1
-z_as_relative = false
-scale = Vector2(0.12, 0.12)
-texture = ExtResource("3_m5kqq")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D2"]
-z_index = -1
-z_as_relative = false
-shape = SubResource("CircleShape2D_0qrhh")
-
-[node name="Line2D" type="Line2D" parent="CharacterBody2D2"]
-points = PackedVector2Array(0, 0, 167, 24)
-script = ExtResource("4_4etwh")
 
 [node name="pricipal" type="Sprite2D" parent="."]
 z_index = 1
 z_as_relative = false
-position = Vector2(505, 251)
+position = Vector2(546, 359)
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("3_m5kqq")
 
-[connection signal="input_event" from="CharacterBody2D" to="CharacterBody2D" method="_on_input_event"]
-[connection signal="input_event" from="CharacterBody2D2" to="CharacterBody2D2" method="_on_input_event"]
+[node name="item-area" type="Area2D" parent="."]
+position = Vector2(96, 274)
+script = ExtResource("4_utt8o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="item-area"]
+z_as_relative = false
+shape = SubResource("CircleShape2D_0qrhh")
+
+[node name="Sprite2D" type="Sprite2D" parent="item-area"]
+z_as_relative = false
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("3_m5kqq")
+
+[node name="Line2D" type="Line2D" parent="item-area"]
+z_index = -1
+points = PackedVector2Array(0, 0, 96, 0)
+
+[connection signal="input_event" from="item" to="item" method="_on_input_event"]
