@@ -1,57 +1,69 @@
-[gd_scene load_steps=6 format=3 uid="uid://cva3pkdt22ie2"]
+[gd_scene load_steps=9 format=3 uid="uid://cr8i81774ftvp"]
 
 [ext_resource type="Script" path="res://node_2d.gd" id="1_x0vte"]
-[ext_resource type="Script" path="res://item.gd" id="2_167xu"]
+[ext_resource type="Script" path="res://item.gd" id="2_k26bq"]
 [ext_resource type="Texture2D" uid="uid://cjcctea38c3wq" path="res://coin.svg" id="3_m5kqq"]
-[ext_resource type="Script" path="res://item-area.gd" id="4_utt8o"]
+[ext_resource type="Script" path="res://neutral.gd" id="4_pvifo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0qrhh"]
 radius = 48.1664
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_0uykm"]
+radius = 250.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g7vah"]
+radius = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x5aga"]
+radius = 100.0
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_x0vte")
 
-[node name="item" type="CharacterBody2D" parent="."]
-position = Vector2(160, 80)
-input_pickable = true
-script = ExtResource("2_167xu")
+[node name="item" type="Area2D" parent="."]
+position = Vector2(226, 585)
+script = ExtResource("2_k26bq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="item"]
+z_as_relative = false
+shape = SubResource("CircleShape2D_0qrhh")
 
 [node name="Sprite2D" type="Sprite2D" parent="item"]
-z_index = 1
 z_as_relative = false
 scale = Vector2(0.12, 0.12)
 texture = ExtResource("3_m5kqq")
 
 [node name="Line2D" type="Line2D" parent="item"]
+z_index = -1
 points = PackedVector2Array(0, 0, 96, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="item"]
-z_index = -1
-z_as_relative = false
-shape = SubResource("CircleShape2D_0qrhh")
+[node name="Principal" type="Area2D" parent="."]
+position = Vector2(1026, 395)
 
-[node name="pricipal" type="Sprite2D" parent="."]
+[node name="accion" type="Area2D" parent="Principal"]
+
+[node name="accion" type="CollisionShape2D" parent="Principal/accion"]
+shape = SubResource("CircleShape2D_0uykm")
+debug_color = Color(0.486275, 0.572549, 0.34902, 0.419608)
+
+[node name="principal" type="Sprite2D" parent="Principal"]
 z_index = 1
 z_as_relative = false
-position = Vector2(546, 359)
-scale = Vector2(0.15, 0.15)
+scale = Vector2(0.125, 0.125)
 texture = ExtResource("3_m5kqq")
 
-[node name="item-area" type="Area2D" parent="."]
-position = Vector2(96, 274)
-script = ExtResource("4_utt8o")
+[node name="moneda" type="CollisionShape2D" parent="Principal"]
+shape = SubResource("CircleShape2D_g7vah")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="item-area"]
-z_as_relative = false
-shape = SubResource("CircleShape2D_0qrhh")
+[node name="neutral" type="Area2D" parent="Principal"]
+script = ExtResource("4_pvifo")
 
-[node name="Sprite2D" type="Sprite2D" parent="item-area"]
-z_as_relative = false
-scale = Vector2(0.12, 0.12)
-texture = ExtResource("3_m5kqq")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Principal/neutral"]
+shape = SubResource("CircleShape2D_x5aga")
 
-[node name="Line2D" type="Line2D" parent="item-area"]
-z_index = -1
-points = PackedVector2Array(0, 0, 96, 0)
+[node name="sector" type="Area2D" parent="Principal"]
 
-[connection signal="input_event" from="item" to="item" method="_on_input_event"]
+[node name="sector" type="Polygon2D" parent="Principal/sector"]
+color = Color(0, 0, 0, 0.262745)
+
+[node name="sector-collision" type="CollisionPolygon2D" parent="Principal/sector"]

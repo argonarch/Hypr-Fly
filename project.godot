@@ -13,12 +13,19 @@ config_version=5
 config/name="Hypr Fly"
 run/main_scene="res://node_2d.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 0)
 boot_splash/show_image=false
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 
+[autoload]
+
+Global="*res://global.gd"
+
 [display]
 
+window/size/viewport_width=1600
+window/size/viewport_height=900
 window/size/transparent=true
 window/per_pixel_transparency/allowed=true
 
@@ -26,3 +33,7 @@ window/per_pixel_transparency/allowed=true
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-sqlite/plugin.cfg")
