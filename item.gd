@@ -5,16 +5,15 @@ var grabbed_offset = Vector2()
 var db : SQLite = null
 var db_name := "res://DataStore/database"
 
+
 func _ready():
 	db = SQLite.new()
 	db.path = db_name
-	area_entered.connect(_on_area_entered)
 	area_exited.connect(_on_area_exited)
 	input_event.connect(_on_input_event)
 	mouse_entered.connect(_on_mouse_entered)
 	get_node("../Principal/neutral").area_exited.connect(_on_neutral_area_exited)
 	get_node("../Principal/neutral").area_entered.connect(_on_neutral_area_entered)
-	pass
 
 
 func _on_input_event(viewport, event, shape_idx):
@@ -30,12 +29,9 @@ func _process(delta):
 	$Line2D.set_point_position(1, to_local(get_node("../Principal").get_global_position()))
 	pass
 
-func _on_area_entered(area):
-	if can_grab:
-		print(str('estas en el area: ', area.get_name()))
-	pass
 
 func _on_area_exited(area):
+	print(str('saliste del area: ', area.get_name()))
 	if area.get_name() == "accion" and can_grab == true:
 		db.open_db()
 		var frase = "select * from items where item = '" + get_name() + "' ;"
@@ -45,27 +41,23 @@ func _on_area_exited(area):
 		OS.create_process(command, [])
 		print(get_name())
 		db.close_db()
-		#for member in get_tree().get_nodes_in_group("items"):
-		#	member.hide()
-		#	member.queue_free()
-	#print(str('se entro al area: ', area.get_name()))
 	pass 
 
 func _on_mouse_entered():
-	print("hola")
+	print("tocaste el item")
 	can_grab = true
-	#grabbed_offset = position - get_global_mouse_position()
 	pass
 
 
 func _on_neutral_area_exited(area):
-	print("salio del area neutral")
 	if can_grab:
 		$Line2D.visible = true
-	print("se ve linea")
 	pass
 
 func _on_neutral_area_entered(area):
+	
 	if can_grab:
 		$Line2D.visible = false
 	pass
+
+
