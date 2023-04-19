@@ -22,3 +22,4 @@ func _ready():
 		items[num].add_to_group("sub_items")
 		items[num].visible = true
 	remove_child($sub_item)
+	get_tree().call_group("sub_items","initial_variable")

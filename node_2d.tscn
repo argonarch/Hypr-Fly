@@ -1,29 +1,27 @@
-[gd_scene load_steps=11 format=3 uid="uid://b6mowxk3j51p1"]
+[gd_scene load_steps=9 format=3 uid="uid://b6mowxk3j51p1"]
 
 [ext_resource type="Script" path="res://fly.gd" id="1_8qlfh"]
 [ext_resource type="Script" path="res://sub_item.gd" id="2_nouty"]
 [ext_resource type="Texture2D" uid="uid://cjcctea38c3wq" path="res://coin.svg" id="3_m5kqq"]
-[ext_resource type="Script" path="res://sector.gd" id="4_bc7d6"]
 [ext_resource type="Script" path="res://item.gd" id="4_eitow"]
-[ext_resource type="Script" path="res://neutral.gd" id="5_dss50"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hngh1"]
 radius = 48.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0uykm"]
-radius = 250.0
+radius = 235.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g7vah"]
 radius = 50.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_x5aga"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_cavtx"]
 radius = 120.0
 
 [node name="fly" type="Node2D"]
 script = ExtResource("1_8qlfh")
 
 [node name="sub_item" type="Area2D" parent="."]
-position = Vector2(226, 585)
+position = Vector2(314, 235)
 script = ExtResource("2_nouty")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sub_item"]
@@ -58,16 +56,14 @@ texture = ExtResource("3_m5kqq")
 [node name="moneda" type="CollisionShape2D" parent="item"]
 shape = SubResource("CircleShape2D_g7vah")
 
-[node name="neutral" type="Area2D" parent="item"]
-script = ExtResource("5_dss50")
-
-[node name="neutral" type="CollisionShape2D" parent="item/neutral"]
-shape = SubResource("CircleShape2D_x5aga")
-
 [node name="sector" type="Area2D" parent="item"]
-script = ExtResource("4_bc7d6")
 
 [node name="sector" type="Polygon2D" parent="item/sector"]
-color = Color(0, 0, 0, 0.262745)
+color = Color(0, 0, 0, 0.258824)
 
 [node name="sector-collision" type="CollisionPolygon2D" parent="item/sector"]
+
+[node name="neutral" type="Area2D" parent="item"]
+
+[node name="neutral" type="CollisionShape2D" parent="item/neutral"]
+shape = SubResource("CircleShape2D_cavtx")

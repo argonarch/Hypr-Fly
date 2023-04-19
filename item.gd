@@ -4,8 +4,9 @@ func _ready():
 	var sectors = []
 	var num_items = Global.num_items
 	var mid_item : float = num_items/2.0
-	var max_diametro_sector = 250
-	var min_diametro_sector = 80
+	var max_diametro_sector_draw = 250
+	var max_diametro_sector = 400
+	var min_diametro_sector = 40
 	for num in range(0,num_items):
 		var radian_start = PI*(num)/mid_item
 		var radian_end = PI*(num+1)/mid_item
@@ -21,10 +22,10 @@ func _ready():
 		])
 
 		var vectores = PackedVector2Array([
-		Vector2(0,0),
-		Vector2(max_diametro_sector,0).rotated(radian_start),
-		Vector2(max_diametro_sector,0).rotated(radian_center),
-		Vector2(max_diametro_sector,0).rotated(radian_end)
+		Vector2.ZERO,
+		Vector2(max_diametro_sector_draw,0).rotated(radian_start),
+		Vector2(max_diametro_sector_draw,0).rotated(radian_center),
+		Vector2(max_diametro_sector_draw,0).rotated(radian_end),
 		])
 		
 		sectors.append($sector.duplicate(4))

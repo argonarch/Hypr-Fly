@@ -69,3 +69,22 @@ func _on_input_event(viewport, event, shape_idx):
 		])
 """
 var min_diametro_sector = 100
+
+"""
+	if Global.neutral_exit and Global.sector == "sector-"+num_of_name():
+		can_grab = true
+		$Line2D.visible = true
+		position = get_global_mouse_position()
+	elif Global.neutral_exit == false and can_grab == true:
+		$Line2D.visible = false
+		can_grab = false
+		position = init_position
+"""
+	#if Global.item_selected == true:
+	
+	"""
+	if neutral_status == true:
+		pass	
+	else:
+		can_grab = false
+	"""
