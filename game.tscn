@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1sb6rfleg6so"]
+
+[ext_resource type="PackedScene" uid="uid://b6mowxk3j51p1" path="res://fly.tscn" id="1_nkwb3"]
+
+[node name="game" type="Node2D"]
+
+[node name="fly" parent="." instance=ExtResource("1_nkwb3")]
