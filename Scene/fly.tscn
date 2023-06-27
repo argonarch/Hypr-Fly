@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://b6mowxk3j51p1"]
 
-[ext_resource type="Script" path="res://fly.gd" id="1_8qlfh"]
-[ext_resource type="Script" path="res://sub_item.gd" id="2_nouty"]
-[ext_resource type="Texture2D" uid="uid://cjcctea38c3wq" path="res://coin.svg" id="3_m5kqq"]
+[ext_resource type="Script" path="res://Script/fly.gd" id="1_1xabv"]
+[ext_resource type="Texture2D" uid="uid://bbokcvbdsceuh" path="res://Assets/coin.png" id="3_bb50y"]
+[ext_resource type="Script" path="res://Script/sub_item.gd" id="3_mp7c3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cavtx"]
 radius = 120.0
@@ -17,7 +17,7 @@ radius = 50.0
 radius = 48.0
 
 [node name="fly" type="Node2D"]
-script = ExtResource("1_8qlfh")
+script = ExtResource("1_1xabv")
 
 [node name="neutral" type="Area2D" parent="."]
 
@@ -35,15 +35,15 @@ debug_color = Color(0.486275, 0.572549, 0.34902, 0.419608)
 [node name="principal" type="Sprite2D" parent="item"]
 z_index = 1
 z_as_relative = false
-scale = Vector2(0.125, 0.125)
-texture = ExtResource("3_m5kqq")
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("3_bb50y")
 
 [node name="moneda" type="CollisionShape2D" parent="item"]
 shape = SubResource("CircleShape2D_g7vah")
 
 [node name="sub_item" type="Area2D" parent="."]
 position = Vector2(314, 235)
-script = ExtResource("2_nouty")
+script = ExtResource("3_mp7c3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sub_item"]
 shape = SubResource("CircleShape2D_hngh1")
@@ -52,8 +52,8 @@ shape = SubResource("CircleShape2D_hngh1")
 points = PackedVector2Array(0, 0, 96, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="sub_item"]
-scale = Vector2(0.12, 0.12)
-texture = ExtResource("3_m5kqq")
+scale = Vector2(0.317, 0.317)
+texture = ExtResource("3_bb50y")
 
 [node name="sector" type="Area2D" parent="."]
 

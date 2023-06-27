@@ -6,7 +6,7 @@ var db_name := "res://DataStore/database"
 var init_position
 var member_sector
 var sector_status = false
-var instance_fly = load("res://fly.tscn")
+var instance_fly = load("res://Scene/fly.tscn")
 
 func _ready():
 	db = SQLite.new()

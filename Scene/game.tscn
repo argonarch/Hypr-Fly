@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://daksaqo7hwwwk"]
+
+[ext_resource type="PackedScene" uid="uid://b6mowxk3j51p1" path="res://Scene/fly.tscn" id="1_nkwb3"]
+[ext_resource type="PackedScene" uid="uid://b7rrt1reaqykg" path="res://Scene/paredes.tscn" id="1_tgbdu"]
+
+[node name="game" type="Node2D"]
+
+[node name="Paredes" parent="." instance=ExtResource("1_tgbdu")]
+
+[node name="fly" parent="." instance=ExtResource("1_nkwb3")]

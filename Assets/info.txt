@@ -88,3 +88,17 @@ var min_diametro_sector = 100
 	else:
 		can_grab = false
 	"""
+
+plugin pizza entered shape
+func angler(mama):
+	angles = mama
+	if Engine.is_editor_hint() and is_inside_tree():
+		get_tree().call_group("sectors", "angler", mama)
+		
+		
+"""
+		for node in get_tree().get_nodes_in_group("sectors_shape"):
+			node.queue_free()
+		for node in get_tree().get_nodes_in_group("sectors"):
+			node.queue_free()
+		"""
