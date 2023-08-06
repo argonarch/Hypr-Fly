@@ -4,7 +4,7 @@ func _ready():
 	get_viewport().transparent_bg = true;
 	position = get_global_mouse_position()
 	$sub_item.process_mode = PROCESS_MODE_DISABLED
-	$sub_item.visible = false
+	$sub_item.visible = false 
 	$sub_item/Line2D.visible = false
 	$item.visible = false
 	$item.position = Vector2(0,0)

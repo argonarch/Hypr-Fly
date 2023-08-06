@@ -102,3 +102,10 @@ func angler(mama):
 		for node in get_tree().get_nodes_in_group("sectors"):
 			node.queue_free()
 		"""
+#print(divitions1,radius1,angle1)
+		
+#print((angle1/divitions1)*n)
+		#print(n)
+	#vectors.append(Vector2(radius1,0).rotated(deg_to_rad(angle1)))
+	#vectors.append(Vector2(radius_interno1,0).rotated(deg_to_rad(angle1)))
+	

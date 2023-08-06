@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Hypr Fly"
-run/main_scene="res://Scene/fly.tscn"
-config/features=PackedStringArray("4.0", "Forward Plus")
+run/main_scene="res://Scene/game.tscn"
+config/features=PackedStringArray("4.1", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 0)
 boot_splash/show_image=false
 boot_splash/fullsize=false
@@ -36,4 +36,12 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-sqlite/plugin.cfg", "res://addons/pizza_shape/plugin.cfg", "res://addons/pizza_entered_shape/plugin.cfg", "res://addons/pizza_draw/plugin.cfg", "res://addons/items/plugin.cfg")
+enabled=PackedStringArray("res://addons/item/plugin.cfg", "res://addons/item_entered/plugin.cfg", "res://addons/pizza_entered/plugin.cfg", "res://addons/pizza_part/plugin.cfg", "res://addons/zonador/plugin.cfg")
+
+[input_devices]
+
+pointing/emulate_mouse_from_touch=false
+
+[rendering]
+
+viewport/transparent_background=true
