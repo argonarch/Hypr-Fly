@@ -18,10 +18,6 @@ boot_splash/show_image=false
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 
-[autoload]
-
-Global="*res://Script/global.gd"
-
 [display]
 
 window/size/viewport_width=1600
@@ -36,7 +32,7 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/item/plugin.cfg", "res://addons/item_entered/plugin.cfg", "res://addons/pizza_entered/plugin.cfg", "res://addons/pizza_part/plugin.cfg", "res://addons/zonador/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-sqlite/plugin.cfg", "res://addons/item/plugin.cfg", "res://addons/item_entered/plugin.cfg", "res://addons/pizza_entered/plugin.cfg", "res://addons/pizza_part/plugin.cfg", "res://addons/zonador/plugin.cfg")
 
 [input_devices]
 
