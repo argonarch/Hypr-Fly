@@ -3,7 +3,6 @@ extends Node2D
 signal tablada(tabla,icono)
 
 var db : SQLite = null
-var db_name := "res://DataStore/database"
 
 
 var nombre_sector : String = "ninguno"
@@ -17,6 +16,8 @@ var zonas = Zonador2D.new()
 var linea = Line2D.new()
 
 func _ready():
+	db = SQLite.new()
+	db.path = Global.db_name
 	var images_paths = conectionDataBase("select icon from " + tabla + ";")
 	var cantidad_items = conectionDataBase("select count(*) from " + tabla + ";")[0]["count(*)"]
 	
@@ -57,8 +58,6 @@ func _process(delta):
 		items.get_node(nombre_sector).position = items.get_local_mouse_position()
 
 func conectionDataBase(solicitud):
-	db = SQLite.new()
-	db.path = db_name
 	db.open_db()
 	db.query(solicitud)
 	var respuesta = db.query_result

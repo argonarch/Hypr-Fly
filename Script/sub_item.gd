@@ -1,16 +1,13 @@
 extends Area2D
 
 var can_grab = false
-var db : SQLite = null
-var db_name := "res://DataStore/database"
+
 var init_position
 var member_sector
 var sector_status = false
 var instance_fly = load("res://Scene/fly.tscn")
 
 func _ready():
-	db = SQLite.new()
-	db.path = db_name
 	area_exited.connect(_on_area_exited)
 	get_node("../neutral").mouse_exited.connect(_on_neutral_mouse_exited)
 	get_node("../neutral").mouse_entered.connect(_on_neutral_mouse_entered)
@@ -22,7 +19,6 @@ func _process(delta):
 	$Line2D.set_point_position(1, to_local(get_node("../item").get_global_position()))
 
 func _on_area_exited(area):
-	#print(str('saliste del area: ', area.get_name()))
 	if area.get_name() == "accion" and can_grab:
 		can_grab = false
 		for sector in get_tree().get_nodes_in_group("sectors"):
@@ -33,17 +29,7 @@ func _on_area_exited(area):
 		get_node("../accion").queue_free()
 		var ins_fly = instance_fly.instantiate()
 		get_node("/root").add_child(ins_fly)
-		"""
-		db.open_db()
-		var frase = "select * from items where item = '" + get_name() + "' ;"
-		var pregunta = db.query(frase)
-		var command = db.query_result[0]["command"]
-		db.close_db()
-		print("El commando es: " + command)
-		OS.create_process(command, [])
-		print(get_name()) 
-		get_tree().quit()
-		"""
+
 func initial_variable():
 	for member in get_tree().get_nodes_in_group("sectors"):
 		if member.get_name() == "sector-"+num_of_name():

@@ -7,6 +7,9 @@ func _ready():
 	var exit_code = OS.execute("hyprctl", ["cursorpos"], output)
 	var stringer = output[0].rsplit(",", true, 0)
 	print(stringer)
+	var stringer_emply : PackedStringArray = [""]
+	if stringer == stringer_emply:
+		stringer = ["800","500"]
 	var instance = scene.instantiate()
 	instance.position = Vector2(float(stringer[0]),float(stringer[1]))
 	instance.tabla = "items"
