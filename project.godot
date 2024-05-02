@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Hypr Fly"
 run/main_scene="res://Scene/game.tscn"
-config/features=PackedStringArray("4.2", "Forward Plus")
+config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 0)
 boot_splash/show_image=false
 boot_splash/fullsize=false
@@ -20,7 +20,8 @@ boot_splash/use_filter=false
 
 [autoload]
 
-Global="*res://Script/global.gd"
+CustomSignals="*res://Script_C#/CustomSignals.cs"
+DataBase="*res://Script_C#/DataBase.cs"
 
 [display]
 
@@ -29,14 +30,9 @@ window/size/viewport_height=900
 window/size/transparent=true
 window/per_pixel_transparency/allowed=true
 
-[editor]
+[dotnet]
 
-version_control/plugin_name="GitPlugin"
-version_control/autoload_on_startup=true
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/godot-sqlite/plugin.cfg", "res://addons/item/plugin.cfg", "res://addons/item_entered/plugin.cfg", "res://addons/pizza_entered/plugin.cfg", "res://addons/pizza_part/plugin.cfg", "res://addons/zonador/plugin.cfg")
+project/assembly_name="Hypr Fly"
 
 [input_devices]
 

@@ -2,7 +2,6 @@ extends Node2D
 
 
 func _ready():
-	get_viewport().transparent_bg = true
 	position = get_global_mouse_position()
 	$sub_item.process_mode = PROCESS_MODE_DISABLED
 	$sub_item.visible = false
