@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System;
 public partial class Pizza : Area2D
 {
+  [Signal]
+  public delegate void PizzaActualEventHandler(string nombre);
+
   public int radius { get; set; } = 100;
   public int radius_interno { get; set; }
   public float angle { get; set; } = 45.00f;
@@ -10,7 +13,6 @@ public partial class Pizza : Area2D
   CollisionPolygon2D pizzaShape = new CollisionPolygon2D();
   Polygon2D pizzaDraw = new Polygon2D();
 
-  private CustomSignals _customSignals;
   Vector2[] vectors = {
         new Vector2(0,0),
         new Vector2(100,0),
@@ -18,7 +20,6 @@ public partial class Pizza : Area2D
     };
   public override void _Ready()
   {
-    _customSignals = GetNode<CustomSignals>("/root/CustomSignals");
     if (GetChildCount() == 0)
     {
       List<Vector2> vectorsList = new List<Vector2>();
@@ -28,7 +29,7 @@ public partial class Pizza : Area2D
         float radianRotated = (float)(((angle * i) / (divitions - 1)) * (Math.PI / 180));
         vectorsList.Add(new Vector2(radius, 0).Rotated(radianRotated));
       }
-      for (int i = divitions; i < 0; i--)
+      for (int i = divitions - 1; i > 0; i--)
       {
         float radianRotated = (float)(((angle * i) / (divitions - 1)) * (Math.PI / 180));
         vectorsList.Add(new Vector2(radius_interno, 0).Rotated(radianRotated));
@@ -44,13 +45,13 @@ public partial class Pizza : Area2D
 
       pizzaDraw.Name = "Pizza_Draw";
 
-      this.AddChild(pizzaShape);
+      AddChild(pizzaShape);
 
-      this.AddChild(pizzaDraw);
+      AddChild(pizzaDraw);
 
-      this.MouseExited += () => _on_sector_mouse_exited();
+      MouseExited += () => _on_sector_mouse_exited();
 
-      this.MouseEntered += () => _on_sector_mouse_entered();
+      MouseEntered += () => _on_sector_mouse_entered();
 
       pizzaDraw.Owner = GetTree().EditedSceneRoot;
 
@@ -66,6 +67,6 @@ public partial class Pizza : Area2D
   {
     pizzaDraw.Color = new Color(0.36f, 0.42f, 0.75f, 0.30f);
 
-    _customSignals.EmitSignal("Estado", this.Name);
+    EmitSignal("PizzaActual", Name);
   }
 }

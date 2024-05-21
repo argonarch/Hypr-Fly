@@ -1,6 +1,9 @@
 using Godot;
 public partial class Glove : Area2D
 {
+  [Signal]
+  public delegate void GloveActualEventHandler(string nombre);
+
   public float scale { get; set; } = 0.5f;
   public Vector2 vectorScale { get; set; } = new Vector2(0.5f, 0.5f);
   public string imagePath { get; set; }
@@ -10,7 +13,7 @@ public partial class Glove : Area2D
   Vector2 initPosition;
   public override void _Ready()
   {
-    if (this.GetChildCount() == 0)
+    if (GetChildCount() == 0)
     {
       circleShape.Radius = 100.00f;
       itemShape.Shape = circleShape;
@@ -21,26 +24,26 @@ public partial class Glove : Area2D
       item.Scale = vectorScale;
       item.RotationDegrees = -90;
       item.Name = "item";
-      this.AddChild(itemShape);
-      this.AddChild(item);
-      initPosition = this.Position;
-      this.MouseExited += () => _on_item_mouse_exited();
-      this.MouseEntered += () => _on_item_mouse_entered();
+      AddChild(itemShape);
+      AddChild(item);
+      initPosition = Position;
+      MouseExited += () => _on_item_mouse_exited();
+      MouseEntered += () => _on_item_mouse_entered();
       item.Owner = GetTree().EditedSceneRoot;
       itemShape.Owner = GetTree().EditedSceneRoot;
     }
   }
   void _on_item_mouse_exited()
   {
-    EmitSignal("estado", this.Name);
+    EmitSignal("GloveActual", Name);
   }
   void _on_item_mouse_entered()
   {
-    EmitSignal("estado", this.Name);
+    EmitSignal("GloveActual", Name);
   }
   public void auto_posicion()
   {
-    this.Position = initPosition;
+    Position = initPosition;
   }
 }
 

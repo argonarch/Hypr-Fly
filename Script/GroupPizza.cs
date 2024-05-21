@@ -21,7 +21,7 @@ public partial class GroupPizza : Node2D
     for (int i = 0; i < divisionNow; i++)
     {
       Pizza contenedor = new Pizza();
-      contenedor.Name = "contenedor-" + (i + 1).ToString();
+      contenedor.Name = "Pizza-" + (i + 1).ToString();
       contenedor.Rotation = (float)(i * (2 * Math.PI) / division);
       contenedor.angle = (360) / (float)(division);
       contenedor.divitions = borde;

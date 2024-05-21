@@ -10,7 +10,7 @@ public partial class GroupZone : Node2D
 
       Zone zone = new Zone();
       zone.diametro = (float)(zones[i]);
-      zone.Name = "zona-" + (i + 1).ToString();
+      zone.Name = "Zone-" + (i + 1).ToString();
       this.AddChild(zone);
       zone.Owner = GetTree().EditedSceneRoot;
     }

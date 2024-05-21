@@ -1,4 +1,5 @@
 using Godot;
+using System.Collections.Generic;
 public partial class Game : Node2D
 {
   private CustomSignals _customSignals;
@@ -9,19 +10,22 @@ public partial class Game : Node2D
     var output = new Godot.Collections.Array();
     string[] argExec = { "cursorpos" };
     OS.Execute("hyprctl", argExec, output);
-
-    // string[] stringers = ((string)output[0]).Split(",");
-    string[] stringers = new string[2];
-    stringers[0] = "800";
-    stringers[1] = "600";
-
-    string[] stringer_emply = { "" };
-
-    if (stringers == stringer_emply)
+    GD.Print(output);
+    List<string> stringersList = new List<string>();
+    if ((string)output[0] == "")
     {
-      stringers[0] = "800";
-      stringers[1] = "600";
+      stringersList.Add("800");
+      stringersList.Add("600");
     }
+    else
+    {
+      string[] stringerFilt = ((string)output[0]).Split(",");
+      stringersList.Add((string)stringerFilt[0]);
+      stringersList.Add((string)stringerFilt[1]);
+    }
+
+    string[] stringers = stringersList.ToArray();
+
     GD.Print("Setted Stringers");
     Point pointInstance = PointScene.Instantiate<Point>();
     pointInstance.Position = new Vector2(float.Parse(stringers[0]), float.Parse(stringers[1]));

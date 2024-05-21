@@ -1,7 +1,7 @@
 using Godot;
 public partial class Point : Node2D
 {
-  public string nombre_sector = "ninguno";
+  public string namePizza = "ninguno";
   public string zonaSalida;
   public string icono_center = "emblem-added.png";
   public string tabla = "items";
@@ -26,7 +26,8 @@ public partial class Point : Node2D
     int bordeado = 12 - cantidad_items;
     int distancia_item = 110;
     int distancia_final = 200;
-    Vector2[] points = { new Vector2(0, 0) };
+    Vector2[] points = { new Vector2(0, 0),
+                         new Vector2(0,0)};
     linea.Points = points;
     linea.Visible = false;
 
@@ -38,7 +39,7 @@ public partial class Point : Node2D
 
     sectores.Name = "Sectors";
     sectores.radio = distancia_final;
-    sectores.radio_interno = 49;
+    sectores.radio_interno = 50;
     sectores.division = cantidad_items;
     sectores.borde = bordeado;
 
@@ -55,11 +56,11 @@ public partial class Point : Node2D
 
   public override void _Process(double delta)
   {
-    if (zonaSalida == "zona-1")
+    if (zonaSalida == "Zone-1")
     {
       linea.SetPointPosition(1, linea.GetLocalMousePosition());
 
-      items.GetNode<Glove>(nombre_sector).Position = items.GetLocalMousePosition();
+      items.GetNode<Glove>(namePizza).Position = items.GetLocalMousePosition();
     }
   }
 
@@ -69,61 +70,55 @@ public partial class Point : Node2D
     Godot.Collections.Array<Node> childZones = zones.GetChildren();
     foreach (Pizza child in childSectors)
     {
-      _customSignals.Estado += _on_sector_estado;
+      child.PizzaActual += _on_sector_estado;
     }
     foreach (Zone child in childZones)
     {
-      _customSignals.Estado += _on_zona_estado;
+      child.ZoneActual += _on_zona_estado;
     }
   }
 
   void _on_sector_estado(string nombre)
   {
-    if (nombre_sector != "ninguno")
+    if (namePizza != "ninguno")
     {
-      items.GetNode<Glove>(nombre_sector).auto_posicion();
+      items.GetNode<Glove>(namePizza).auto_posicion();
     }
-    nombre_sector = nombre;
-    GD.Print("el sector que ejecuta es: " + nombre_sector);
+    namePizza = nombre;
+    GD.Print("Pizza Actual: ", namePizza);
   }
 
   void _on_zona_estado(string nombre)
   {
     zonaSalida = nombre;
-
-    GD.Print("la saliste de la zona: " + nombre);
-
-    if (zonaSalida == "zona-1")
+    GD.Print("Zone Exited: ", nombre);
+    if (zonaSalida == "Zone-1")
     {
       linea.Visible = true;
     }
-    else if (zonaSalida == "zona-2")
+    else if (zonaSalida == "Zone-2")
     {
       linea.Visible = false;
+      GD.Print("Pizza Executed: " + namePizza);
+      string command = _dataBase.GetDate(
+          "select command from " + tabla + " where item = '" + namePizza + "' ;");
+      if (command == "comandado")
+      {
+        string tabla_nombre = _dataBase.GetDate(
+                  "select tabla from " + tabla + " where item = '" + namePizza + "' ;");
+
+        string icono_nombre = _dataBase.GetDate(
+            "select icon from " + tabla + " where item = '" + namePizza + "' ;");
+        this.Visible = false;
+        GD.Print("Table is: " + tabla_nombre);
+        _customSignals.EmitSignal("Tablada", tabla_nombre, icono_nombre);
+      }
+      else
+      {
+        GD.Print("Command is: " + command);
+        OS.CreateProcess(command, new string[0]);
+        GetTree().Quit();
+      }
     }
-    GD.Print("Te saliste y se ejecutara comando de " + nombre_sector);
-
-    string command = _dataBase.GetDate(
-        "select * from " + tabla + " where item = '" + nombre_sector + "' ;");
-
-    GD.Print("El commando es: " + command);
-
-    if (command == "comandado")
-    {
-      string tabla_nombre = _dataBase.GetDate(
-                "select tabla from " + tabla + " where item = '" + nombre_sector + "' ;");
-
-      string icono_nombre = _dataBase.GetDate(
-          "select icon from " + tabla + " where item = '" + nombre_sector + "' ;");
-      this.Visible = false;
-
-      GD.Print("la tabla a elegir es: " + tabla_nombre);
-      EmitSignal("Tablada", tabla_nombre, icono_nombre);
-    }
-    else
-    {
-      OS.CreateProcess(command, new string[0]);
-    }
-    GetTree().Quit();
   }
 }

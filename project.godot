@@ -20,8 +20,8 @@ boot_splash/use_filter=false
 
 [autoload]
 
-CustomSignals="*res://Script_C#/CustomSignals.cs"
-DataBase="*res://Script_C#/DataBase.cs"
+CustomSignals="*res://Script/CustomSignals.cs"
+DataBase="*res://Script/DataBase.cs"
 
 [display]
 
