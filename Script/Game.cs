@@ -1,34 +1,43 @@
 using Godot;
-using System.Collections.Generic;
+
 public partial class Game : Node2D
 {
   private CustomSignals _customSignals;
   PackedScene PointScene = GD.Load<PackedScene>("res://Scene/point.tscn");
+  public string entorno;
   public override void _Ready()
   {
-    GD.Print("Runnig");
+    GD.Print("Start Game");
+    var outputBash = new Godot.Collections.Array();
+    string bashCommand = "[ -n '$FLATPAK_SANDBOX_DIR' ] && echo '1' || echo '0'";
+    string[] argsBash = { "-c", bashCommand };
+    OS.Execute("/bin/bash", argsBash, outputBash);
+    int isFlatpak = int.Parse(string.Join("", outputBash));
+
     var output = new Godot.Collections.Array();
-    string[] argExec = { "cursorpos" };
-    OS.Execute("hyprctl", argExec, output);
-    GD.Print(output);
-    List<string> stringersList = new List<string>();
-    if ((string)output[0] == "")
+    float[] positionMouse = new float[2];
+    if (isFlatpak == 1)
     {
-      stringersList.Add("800");
-      stringersList.Add("600");
+      GD.Print("Run in Flatpak");
+      entorno = "flatpak";
+      OS.Execute("flatpak-spawn", new string[] { "--host", "hyprctl", "cursorpos" }, output);
+      string outputString = string.Join("", output);
+      positionMouse = System.Array.ConvertAll(outputString.Split(","), float.Parse);
+      GD.Print(positionMouse[0], ", ", positionMouse[1]);
     }
     else
     {
-      string[] stringerFilt = ((string)output[0]).Split(",");
-      stringersList.Add((string)stringerFilt[0]);
-      stringersList.Add((string)stringerFilt[1]);
+      GD.Print("Run in Desktop");
+      entorno = "desktop";
+      OS.Execute("hyprctl", new string[] { "cursorpos" }, output);
+      string outputString = string.Join("", output);
+      positionMouse = System.Array.ConvertAll(outputString.Split(","), float.Parse);
+      GD.Print(positionMouse[0], ", ", positionMouse[1]);
     }
-
-    string[] stringers = stringersList.ToArray();
 
     GD.Print("Setted Stringers");
     Point pointInstance = PointScene.Instantiate<Point>();
-    pointInstance.Position = new Vector2(float.Parse(stringers[0]), float.Parse(stringers[1]));
+    pointInstance.Position = new Vector2(positionMouse[0], positionMouse[1]);
     pointInstance.tabla = "items";
     AddChild(pointInstance);
 
@@ -46,4 +55,5 @@ public partial class Game : Node2D
     pointInstance.icono_center = icono;
     AddChild(pointInstance);
   }
+
 }

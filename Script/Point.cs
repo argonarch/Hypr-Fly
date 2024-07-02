@@ -59,7 +59,6 @@ public partial class Point : Node2D
     if (zonaSalida == "Zone-1")
     {
       linea.SetPointPosition(1, linea.GetLocalMousePosition());
-
       items.GetNode<Glove>(namePizza).Position = items.GetLocalMousePosition();
     }
   }
