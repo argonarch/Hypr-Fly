@@ -19,7 +19,7 @@ Download HyprFly.zip in the [release](https://github.com/argonarch/Hypr-Fly/rele
 
 ### Open app
 
-![open](Docs/Assets/opens.GIF)
+![open](.docs/Assets/opens.GIF)
 
 ### Sub Menu
 

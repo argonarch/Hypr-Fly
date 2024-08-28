@@ -2,7 +2,9 @@ using Godot;
 
 public partial class Game : Node2D
 {
-  private CustomSignals _customSignals;
+  [Signal]
+  public delegate void TabladaEventHandler(string tabla, string icono);
+
   PackedScene PointScene = GD.Load<PackedScene>("res://Scene/point.tscn");
   public string entorno;
   public override void _Ready()
@@ -42,13 +44,12 @@ public partial class Game : Node2D
     AddChild(pointInstance);
 
     GD.Print("Instance Point Node");
-    _customSignals = GetNode<CustomSignals>("/root/CustomSignals");
-    _customSignals.Tablada += OnInstance;
+    Tablada += OnInstance;
     GD.Print("Connected to Signal Tablada");
   }
+
   private void OnInstance(string tabla, string icono)
   {
-
     Point pointInstance = PointScene.Instantiate<Point>();
     pointInstance.Position = GetViewport().GetMousePosition();
     pointInstance.tabla = tabla;

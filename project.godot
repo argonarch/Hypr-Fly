@@ -12,16 +12,11 @@ config_version=5
 
 config/name="Hypr Fly"
 run/main_scene="res://Scene/game.tscn"
-config/features=PackedStringArray("4.2", "C#", "Forward Plus")
+config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 0)
 boot_splash/show_image=false
 boot_splash/fullsize=false
 boot_splash/use_filter=false
-
-[autoload]
-
-CustomSignals="*res://Script/CustomSignals.cs"
-DataBase="*res://Script/DataBase.cs"
 
 [display]
 

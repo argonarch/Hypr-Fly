@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 public partial class DataBase : Node2D
 {
-  public string GetDate(string solicitud)
+  public static string GetDate(string solicitud)
   {
     string resultado;
 
@@ -23,7 +23,7 @@ public partial class DataBase : Node2D
 
     return "Failed Query";
   }
-  public string[] GetDates(string solicitud, string column)
+  public static string[] GetDates(string solicitud, string column)
   {
     List<string> resultados = new List<string>();
 
@@ -39,6 +39,15 @@ public partial class DataBase : Node2D
       resultados.Add(Convert.ToString(reader[column]));
     }
     return resultados.ToArray();
+  }
+  public static void CreateDataBase()
+  {
+    using var connection = new SqliteConnection("Data Source=DataStore/database.db");
+    connection.Open();
+
+    var command = connection.CreateCommand();
+    command.CommandText = "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)";
+    command.ExecuteNonQuery();
   }
 }
 
