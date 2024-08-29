@@ -7,8 +7,9 @@ public partial class Pizza : Area2D
   public delegate void PizzaActualEventHandler(string nombre);
 
   public Vector2 Radius { get; set; }
-  public float Angle { get; set; } = 45.00f;
-  public int Divitions { get; set; } = 2;
+  public float Angle { get; set; }
+  public int Divitions { get; set; }
+  public string Id { get; set; }
   CollisionPolygon2D pizzaShape;
   Polygon2D pizzaDraw;
 
@@ -17,9 +18,10 @@ public partial class Pizza : Area2D
         new Vector2(100,0),
         new Vector2(0,100)
     };
-  public Pizza(string name, Vector2 radius, float angle, int divitions)
+  public Pizza(string name, string id, Vector2 radius, float angle, int divitions)
   {
     Name = name;
+    Id = id;
     Radius = radius;
     Angle = angle;
     Divitions = divitions;
@@ -30,16 +32,16 @@ public partial class Pizza : Area2D
     if (GetChildCount() == 0)
     {
       List<Vector2> vectorsList = new List<Vector2>();
-      vectorsList.Add(new Vector2(Radius[0], 0));
+      vectorsList.Add(new Vector2(Radius[1], 0));
       for (int i = 0; i < Divitions; i++)
       {
         float radianRotated = (float)(((Angle * i) / (Divitions - 1)) * (Math.PI / 180));
-        vectorsList.Add(new Vector2(Radius[1], 0).Rotated(radianRotated));
+        vectorsList.Add(new Vector2(Radius[0], 0).Rotated(radianRotated));
       }
       for (int i = Divitions - 1; i > 0; i--)
       {
         float radianRotated = (float)(((Angle * i) / (Divitions - 1)) * (Math.PI / 180));
-        vectorsList.Add(new Vector2(Radius[0], 0).Rotated(radianRotated));
+        vectorsList.Add(new Vector2(Radius[1], 0).Rotated(radianRotated));
       }
       vectors = vectorsList.ToArray();
       pizzaShape = new CollisionPolygon2D { Name = "Pizza_Shape", Polygon = vectors, Visible = false };
@@ -65,16 +67,16 @@ public partial class Pizza : Area2D
   void _on_sector_mouse_entered()
   {
     pizzaDraw.Color = new Color(0.36f, 0.42f, 0.75f, 0.30f);
-    EmitSignal("PizzaActual", Name);
+    EmitSignal("PizzaActual", Id);
   }
 
   void _on_sector_estado(string nombre)
   {
-    if (Globals.NamePizza != "ninguno")
+    if (Globals.IdPizza != "ninguno")
     {
-      Point.items.GetNode<Glove>(Globals.NamePizza).auto_posicion();
+      Point.items.GetNode<Glove>("Glove-" + Globals.IdPizza).auto_posicion();
     }
-    Globals.NamePizza = nombre;
-    GD.Print("Pizza Actual: ", Globals.NamePizza);
+    Globals.IdPizza = nombre;
+    // GD.Print("Pizza Actual: ", Globals.IdPizza);
   }
 }

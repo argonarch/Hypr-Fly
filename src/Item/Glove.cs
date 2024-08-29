@@ -1,16 +1,25 @@
 using Godot;
 public partial class Glove : Area2D
 {
-  public Vector2 VectorScale { get; set; } = new Vector2(0.5f, 0.5f);
+  public Vector2 VectorScale { get; set; }
   public string ImagePath { get; set; }
+  public Customer Customer;
+
   CollisionShape2D itemShape;
   CircleShape2D circleShape;
   Sprite2D item;
   Vector2 initPosition;
 
-  public Glove(string name, float scalePizza, string imagePath)
+  public Glove(string name, Customer customer, float scalePizza, string imagePath)
   {
     Name = name;
+    VectorScale = new Vector2(scalePizza, scalePizza);
+    ImagePath = imagePath;
+    Customer = customer;
+  }
+  public Glove(float scalePizza, string imagePath)
+  {
+    Name = "Center";
     VectorScale = new Vector2(scalePizza, scalePizza);
     ImagePath = imagePath;
   }
@@ -21,14 +30,16 @@ public partial class Glove : Area2D
     {
       circleShape = new CircleShape2D { Radius = 100.00f };
       itemShape = new CollisionShape2D { Shape = circleShape, Visible = false, Name = "item-Shape", Scale = VectorScale };
+      var image = new Image();
+      image.Load(Globals.HyprFlyDir + "/Icons/" + ImagePath);
       item = new Sprite2D
       {
         Name = "item",
         Scale = VectorScale,
         RotationDegrees = -90,
-        Texture = ResourceLoader.Load<Texture2D>("res://Assets/icons/" + ImagePath)
+        Texture = ImageTexture.CreateFromImage(image),
       };
-
+      MouseEntered += () => _on_sector_mouse_entered();
       AddChild(itemShape);
       AddChild(item);
       initPosition = Position;
@@ -40,6 +51,11 @@ public partial class Glove : Area2D
   public void auto_posicion()
   {
     Position = initPosition;
+  }
+
+  public void _on_sector_mouse_entered()
+  {
+    Globals.CustomerSelected = Customer;
   }
 }
 

@@ -22,14 +22,10 @@ public partial class Zone : Area2D
   void _on_zona_estado(string nombre)
   {
     Globals.ZonaSalida = nombre;
-    GD.Print("Zone Exited: ", nombre);
-    if (Globals.ZonaSalida == "Zone-1")
-    {
-      Point.linea.Visible = true;
-    }
-    else if (Globals.ZonaSalida == "Zone-2" && false)
+    if (Globals.ZonaSalida == "Zone-2")
     {
       GetParent().GetParent().EmitSignal("PointExec");
     }
+    // GD.Print("Zone Exited: ", nombre);
   }
 }

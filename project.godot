@@ -29,6 +29,11 @@ window/per_pixel_transparency/allowed=true
 
 project/assembly_name="Hypr Fly"
 
+[filesystem]
+
+import/fbx2gltf/enabled=false
+import/blender/enabled=false
+
 [input_devices]
 
 pointing/emulate_mouse_from_touch=false

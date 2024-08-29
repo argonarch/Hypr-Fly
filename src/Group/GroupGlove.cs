@@ -3,20 +3,20 @@ using System;
 
 public partial class GroupGlove : Node2D
 {
-  public int Distancia { get; set; } = 100;
-  public int Division { get; set; } = 4;
-  public float Escala { get; set; } = 0.5f;
-  public string[] ImagesPath { get; set; }
+  public int Distancia { get; set; }
+  public int Division { get; set; }
+  public float Escala { get; set; }
+  public Customer[] Customers { get; set; }
   public string Icono { get; set; }
 
-  public GroupGlove(int division, int distancia, float escala, string[] imagesPath, string icono)
+  public GroupGlove(int division, int distancia, float escala, Customer[] customers, string icono)
   {
     Name = "Items";
     Division = division;
     Distancia = distancia;
     Escala = escala;
-    ImagesPath = imagesPath;
     Icono = icono;
+    Customers = customers;
   }
 
   public override void _Ready()
@@ -34,12 +34,12 @@ public partial class GroupGlove : Node2D
     for (int i = 0; i < divisionNow; i++)
     {
       double radianStart = Math.PI * (i) / mid_item;
-      Glove gloveExtern = new Glove("Pizza-" + (i + 1).ToString(), Escala, ImagesPath[i]);
+      Glove gloveExtern = new Glove("Glove-" + (i + 1).ToString(), Customers[i], Escala, Customers[i].Icon);
       gloveExtern.Position = new Vector2(Distancia, 0).Rotated((float)(radianStart + rad_mid));
       AddChild(gloveExtern);
       gloveExtern.AddToGroup("contenedor_items");
     }
-    Glove globeCenter = new Glove("contenedor-centro", Escala, Icono);
+    Glove globeCenter = new Glove(Escala, Icono);
     AddChild(globeCenter);
     globeCenter.AddToGroup("contenedor_items");
   }
