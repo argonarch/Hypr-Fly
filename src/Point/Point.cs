@@ -14,7 +14,7 @@ public partial class Point : Node2D
   public override void _Ready()
   {
     GD.Print("Get Database dates of table: " + Tabla);
-
+    
     customers = LiteData.GetItems(Tabla);
     IconCenter = LiteData.GetIconCenter(Tabla);
     int cantidad_items = customers.Length;
@@ -22,8 +22,8 @@ public partial class Point : Node2D
     Vector2 distancia = new Vector2(110, 200);
 
     items = new GroupGlove(cantidad_items, (int)distancia[0], 0.5f, customers, IconCenter);
-    sectores = new GroupPizza(cantidad_items, new Vector2(35, distancia[1]), bordeado);
-    zonas = new GroupZone(distancia);
+    sectores = new GroupPizza(cantidad_items, new Vector2(50, distancia[1]));
+    zonas = new GroupZone(new Vector2(distancia[0], distancia[1] + 60));
 
     AddChild(zonas);
     AddChild(sectores);
@@ -34,7 +34,7 @@ public partial class Point : Node2D
 
   public override void _Process(double delta)
   {
-    if (Globals.ZonaSalida == "Zone-1")
+    if (Globals.ZonaSalida == "Zone-0")
     {
       items.GetNode<Glove>("Glove-" + Globals.IdPizza).Position = items.GetLocalMousePosition();
     }
@@ -43,7 +43,6 @@ public partial class Point : Node2D
   public void _exec_command()
   {
     GD.Print("Glove Executed: " + Globals.IdPizza);
-
     int type = Globals.CustomerSelected.Type;
     if (type == 2)
     {
@@ -53,12 +52,17 @@ public partial class Point : Node2D
       GD.Print("Table is: " + newTable);
 
       Globals.IdPizza = "ninguno";
-      GetParent().EmitSignal("Tablada", newTable, newIconCenter);
+      GetParent().EmitSignal("CreaterPoints", newTable, newIconCenter);
     }
     else
     {
       GD.Print("Command is: " + Globals.CustomerSelected.Command);
-      OS.CreateProcess(Globals.CustomerSelected.Command, new string[] { });
+      if (Globals.Environment == "Flatpak")
+      {
+        OS.CreateProcess("flatpak-spawn", new string[] { "--host", Globals.CustomerSelected.Command});
+      } else {
+        OS.CreateProcess(Globals.CustomerSelected.Command, new string[] { });
+      }
       GetTree().Quit();
     }
   }

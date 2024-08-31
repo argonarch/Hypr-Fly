@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class GroupGlove : Node2D
 {
@@ -21,21 +20,14 @@ public partial class GroupGlove : Node2D
 
   public override void _Ready()
   {
-    if (GetChildCount() == 0)
+    Rotation = Globals.Pi_2;
+    float rad_mid = Mathf.Pi / Division;
+    float mid_item = Division / 2.0f;
+    for (int i = 0; i < Division; i++)
     {
-      RotationDegrees = 90;
-      createGloves(Division);
-    }
-  }
-  void createGloves(float divisionNow)
-  {
-    double rad_mid = Math.PI / divisionNow;
-    float mid_item = divisionNow / 2.0f;
-    for (int i = 0; i < divisionNow; i++)
-    {
-      double radianStart = Math.PI * (i) / mid_item;
-      Glove gloveExtern = new Glove("Glove-" + (i + 1).ToString(), Customers[i], Escala, Customers[i].Icon);
-      gloveExtern.Position = new Vector2(Distancia, 0).Rotated((float)(radianStart + rad_mid));
+      float radianStart = Mathf.Pi * (i) / mid_item;
+      Glove gloveExtern = new Glove(i.ToString(), Customers[i], Escala);
+      gloveExtern.Position = new Vector2(Distancia, 0).Rotated(radianStart + rad_mid);
       AddChild(gloveExtern);
       gloveExtern.AddToGroup("contenedor_items");
     }
@@ -43,5 +35,4 @@ public partial class GroupGlove : Node2D
     AddChild(globeCenter);
     globeCenter.AddToGroup("contenedor_items");
   }
-
 }

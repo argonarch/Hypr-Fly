@@ -7,5 +7,6 @@ public partial class Globals : Node
   public static Customer CustomerSelected { get; set; }
   public static string ZonaSalida { get; set; }
   public static string HyprFlyDir = OS.GetConfigDir() + "/HyprFly";
-
+  public static string Environment { get; set; }
+  public const float Pi_2 = Mathf.Pi / 2;
 }

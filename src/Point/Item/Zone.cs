@@ -14,15 +14,12 @@ public partial class Zone : Area2D
     AddChild(zona_collion);
 
     MouseExited += () => _on_zona_estado(Name);
-
-    zona_collion.Owner = GetTree().EditedSceneRoot;
-    Owner = GetTree().EditedSceneRoot;
   }
 
   void _on_zona_estado(string nombre)
   {
     Globals.ZonaSalida = nombre;
-    if (Globals.ZonaSalida == "Zone-2")
+    if (Globals.ZonaSalida == "Zone-1")
     {
       GetParent().GetParent().EmitSignal("PointExec");
     }
